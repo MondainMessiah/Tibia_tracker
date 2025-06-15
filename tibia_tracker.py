@@ -2,6 +2,7 @@ import os
 import requests
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from datetime import datetime
+from urllib.parse import quote  # ✅ Added to fix URL encoding
 
 WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
 
@@ -14,7 +15,7 @@ CHARACTERS = [
 ]
 
 def fetch_character(name):
-    url = f"https://api.tibiadata.com/v1/characters/{name}.json"
+    url = f"https://api.tibiadata.com/v1/characters/{quote(name)}.json"  # ✅ URL-encoded name
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -57,7 +58,6 @@ def send_daily_summary():
             continue
 
         status = "Online" if info["online"] else "Offline"
-
         medal = medal_emojis[idx] if idx < 3 else ""
 
         line = (
