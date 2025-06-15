@@ -2,7 +2,7 @@ name: Daily Tibia Tracker
 
 on:
   schedule:
-    # Run every day at 09:00 UTC (GMT)
+    # Runs every day at 09:00 UTC (GMT)
     - cron: '0 9 * * *'
 
 jobs:
